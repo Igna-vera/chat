@@ -1,0 +1,26 @@
+<h2>Lista de productos</h2>
+{{#if productosLista.[0]}}
+    <table class="table table-sm table-hover">
+        
+        <thead>
+            <tr>
+                <th scope="col">#ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Precio</th>
+             
+            </tr>
+        </thead>
+        <tbody>
+        {{#each productosLista}}
+            <tr>
+                <td>{{this.id}}</td>
+                <td>{{this.title}}</td>
+                <td>{{this.price}}</td>
+              
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+{{else}}
+<h2>No hay productos en la lista</h2>
+{{/if}}
