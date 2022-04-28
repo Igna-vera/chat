@@ -34,9 +34,7 @@ class Contenedor {
         producto = product;
       }
     });
-    console.log(producto);
   }
-
   getAll() {
     let productos = [];
     try {
@@ -47,6 +45,37 @@ class Contenedor {
     }
     return productos;
   }
+
+  async getData() {
+    const data = await fs.promises.readFile(this.nombreArchivo, "utf-8");
+
+    return data;
+  }
+
+  async getAllChat() {
+    const data = await this.getData();
+    return JSON.parse(data);
+  }
+  async saveChat(object) {
+    try {
+      const allData = await this.getData();
+      const parsedData = JSON.parse(allData);
+
+      object.id = parsedData.length + 1;
+      parsedData.push(object);
+
+      await fs.promises.writeFile(
+        this.nombreArchivo,
+        JSON.stringify(parsedData)
+      );
+      return object.id;
+    } catch (error) {
+      console.log(
+        `Error Code: ${error.code} | There was an error when trying to save an element`
+      );
+    }
+  }
+
   deleteById(id) {
     let productos = [];
 
